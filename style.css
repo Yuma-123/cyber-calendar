@@ -1,0 +1,62 @@
+:root {
+    --bg-color: #050505;
+    --primary: #00f3ff;
+    --accent: #ff0055;
+    --grid: rgba(0, 243, 255, 0.1);
+    --font: 'Courier New', monospace;
+}
+
+body {
+    background: var(--bg-color);
+    color: #fff;
+    font-family: var(--font);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 30px 30px;
+    margin: 0;
+}
+
+/* ナビゲーションタブ */
+.cyber-nav {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.nav-item.active, .nav-item:hover {
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 15px var(--primary);
+}
+
+/* 表示切り替え用 */
+.hidden { display: none !important; }
+
+/* ゲームとカレンダーの共通スタイル */
+h1 { text-shadow: 0 0 10px var(--primary); margin: 10px 0; }
+button { cursor: pointer; }
+
+/* --- ここに以前のテトリスやカレンダーのCSSを追加で貼ってもOK --- */
+.game-container { display: flex; gap: 20px; border: 1px solid var(--primary); padding: 20px; background: rgba(0,0,0,0.8); }
+canvas { border: 2px solid var(--primary); background: #000; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; width: 100%; max-width: 600px; }
+.day-cell { border: 1px solid var(--grid); padding: 10px; min-height: 80px; background: rgba(0,0,0,0.5); }
+.today { border-color: var(--accent); }
+.event-marker { background: rgba(0, 243, 255, 0.2); font-size: 0.7rem; }
+/* モーダルなどは省略（必要に応じて以前のコードからコピペしてください） */

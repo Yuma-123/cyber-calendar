@@ -3,316 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBER-CALENDAR | System Log</title>
-    <style>
-        :root {
-            --bg-color: #050505;
-            --primary-glow: #00f3ff;
-            --accent-glow: #ff0055;
-            --text-main: #e0e0e0;
-            --grid-line: rgba(0, 243, 255, 0.1);
-            --font-main: 'Menlo', 'Courier New', monospace; 
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-main);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            background-image: 
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-
-        header {
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            margin-top: 20px;
-            border-bottom: 2px solid var(--primary-glow);
-            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.1);
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            margin: 0;
-            text-shadow: 0 0 10px var(--primary-glow);
-        }
-
-        .nav-btn {
-            background: transparent;
-            border: 1px solid var(--primary-glow);
-            color: var(--primary-glow);
-            padding: 5px 15px;
-            cursor: pointer;
-            font-family: var(--font-main);
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-
-        .nav-btn:hover {
-            background: var(--primary-glow);
-            color: #000;
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-
-        /* カレンダーグリッド */
-        .calendar-container {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 20px;
-            padding-bottom: 50px;
-        }
-
-        .day-header {
-            text-align: center;
-            font-weight: bold;
-            color: var(--accent-glow);
-            padding: 10px;
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
-
-        .day-cell {
-            border: 1px solid rgba(0, 243, 255, 0.3);
-            background: rgba(0, 0, 0, 0.6);
-            min-height: 100px;
-            padding: 10px;
-            cursor: pointer;
-            transition: 0.2s;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(2px);
-        }
-
-        .day-cell:hover {
-            border-color: var(--primary-glow);
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3) inset;
-        }
-
-        .day-number {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .today {
-            border: 2px solid var(--accent-glow);
-            box-shadow: 0 0 15px rgba(255, 0, 85, 0.2) inset;
-        }
-
-        .event-marker {
-            font-size: 0.75rem;
-            background: rgba(0, 243, 255, 0.1);
-            border-left: 2px solid var(--primary-glow);
-            padding: 2px 5px;
-            margin-top: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* 予定入力モーダル */
-        #modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-        }
-
-        .modal-content {
-            background: #111;
-            border: 2px solid var(--primary-glow);
-            padding: 30px;
-            width: 300px;
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
-            text-align: center;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 15px 0;
-            background: #000;
-            border: 1px solid var(--primary-glow);
-            color: #fff;
-            font-family: var(--font-main);
-            box-sizing: border-box;
-        }
-
-        .modal-btns {
-            display: flex;
-            justify-content: space-between;
-        }
-    </style>
+    <title>CYBER-BASE | Personal Terminal</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <button class="nav-btn" onclick="changeMonth(-1)">&#60; PREV</button>
-        <h1 id="month-display">LOADING...</h1>
-        <button class="nav-btn" onclick="changeMonth(1)">NEXT &#62;</button>
-    </header>
+    <nav class="cyber-nav">
+        <button class="nav-item active" onclick="switchTab('game')">>> GAME_MODULE</button>
+        <button class="nav-item" onclick="switchTab('system')">>> SYSTEM_LOG</button>
+    </nav>
 
-    <div class="calendar-container" id="calendar">
-        </div>
-
-    <div id="modal">
-        <div class="modal-content">
-            <h2 id="modal-date" style="color:var(--primary-glow)">DATE</h2>
-            <input type="text" id="event-input" placeholder="ENTER TASK..." autocomplete="off">
-            <div class="modal-btns">
-                <button class="nav-btn" style="border-color:var(--accent-glow); color:var(--accent-glow)" onclick="deleteEvent()">DELETE</button>
-                <button class="nav-btn" onclick="saveEvent()">SAVE</button>
+    <main>
+        <div id="game-view" class="view-section">
+            <h1>CYBER TRIS</h1>
+            <div class="game-container">
+                <canvas id="tetris" width="240" height="400"></canvas>
+                <div class="panel">
+                    <div class="score-box">SCORE <div id="score">0</div></div>
+                    <button onclick="startGame()">START</button>
+                </div>
             </div>
-            <p style="margin-top:10px; font-size:0.8rem; color:#666; cursor:pointer;" onclick="closeModal()">[CANCEL]</p>
+            </div>
+
+        <div id="system-view" class="view-section hidden">
+            <h1>SYSTEM CALENDAR</h1>
+            <header class="cal-header">
+                <button onclick="changeMonth(-1)">PREV</button>
+                <h2 id="month-display">--/--</h2>
+                <button onclick="changeMonth(1)">NEXT</button>
+            </header>
+            <div id="calendar" class="calendar-grid"></div>
+        </div>
+    </main>
+
+    <div id="modal" class="hidden">
+        <div class="modal-content">
+            <h2 id="modal-date">DATE</h2>
+            <input type="text" id="event-input" autocomplete="off">
+            <div class="modal-btns">
+                <button onclick="deleteEvent()">DEL</button>
+                <button onclick="saveEvent()">SAVE</button>
+                <button onclick="closeModal()">CLOSE</button>
+            </div>
         </div>
     </div>
 
-    <script>
-        let nav = 0; // 現在の月からどれくらい離れているか
-        let clicked = null; // クリックされた日付
-        let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
-
-        const calendar = document.getElementById('calendar');
-        const monthDisplay = document.getElementById('month-display');
-        const modal = document.getElementById('modal');
-        const modalDate = document.getElementById('modal-date');
-        const eventInput = document.getElementById('event-input');
-
-        function load() {
-            const dt = new Date();
-
-            if (nav !== 0) {
-                dt.setMonth(new Date().getMonth() + nav);
-            }
-
-            const day = dt.getDate();
-            const month = dt.getMonth();
-            const year = dt.getFullYear();
-
-            const firstDayOfMonth = new Date(year, month, 1);
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            
-            const dateString = firstDayOfMonth.toLocaleDateString('en-us', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-            });
-
-            // 1日が何曜日か (0:日曜, 1:月曜...)
-            const paddingDays = firstDayOfMonth.getDay();
-
-            monthDisplay.innerText = `${year} / ${month + 1}`;
-
-            calendar.innerHTML = '';
-
-            // 曜日ヘッダー
-            const weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-            weekDays.forEach(wd => {
-                const dayHeader = document.createElement('div');
-                dayHeader.classList.add('day-header');
-                dayHeader.innerText = wd;
-                calendar.appendChild(dayHeader);
-            });
-
-            // 日付セル生成
-            for(let i = 1; i <= paddingDays + daysInMonth; i++) {
-                const daySquare = document.createElement('div');
-                daySquare.classList.add('day-cell');
-
-                const dayString = `${year}/${month + 1}/${i - paddingDays}`;
-
-                if (i > paddingDays) {
-                    daySquare.innerHTML = `<div class="day-number">${i - paddingDays}</div>`;
-                    
-                    // 今日の日付をハイライト
-                    if (i - paddingDays === day && nav === 0) {
-                        daySquare.classList.add('today');
-                    }
-
-                    // 予定があるかチェック
-                    const eventForDay = events.find(e => e.date === dayString);
-                    if (eventForDay) {
-                        const eventDiv = document.createElement('div');
-                        eventDiv.classList.add('event-marker');
-                        eventDiv.innerText = eventForDay.title;
-                        daySquare.appendChild(eventDiv);
-                    }
-
-                    daySquare.addEventListener('click', () => openModal(dayString));
-                } else {
-                    // 空白セル
-                    daySquare.style.visibility = 'hidden';
-                }
-
-                calendar.appendChild(daySquare);
-            }
-        }
-
-        function openModal(date) {
-            clicked = date;
-            const eventForDay = events.find(e => e.date === clicked);
-
-            if (eventForDay) {
-                eventInput.value = eventForDay.title;
-            } else {
-                eventInput.value = '';
-            }
-
-            modalDate.innerText = date;
-            modal.style.display = 'flex';
-            eventInput.focus();
-        }
-
-        function closeModal() {
-            modal.style.display = 'none';
-            clicked = null;
-            load();
-        }
-
-        function saveEvent() {
-            if (eventInput.value) {
-                // 既存の予定があれば削除して上書き
-                events = events.filter(e => e.date !== clicked);
-                events.push({
-                    date: clicked,
-                    title: eventInput.value
-                });
-                localStorage.setItem('events', JSON.stringify(events));
-            }
-            closeModal();
-        }
-
-        function deleteEvent() {
-            events = events.filter(e => e.date !== clicked);
-            localStorage.setItem('events', JSON.stringify(events));
-            closeModal();
-        }
-
-        function changeMonth(val) {
-            nav += val;
-            load();
-        }
-
-        // 初期表示
-        load();
-
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
