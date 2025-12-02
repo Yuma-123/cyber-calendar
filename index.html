@@ -15,22 +15,23 @@
 
     <main>
         <div id="game-view" class="view-section">
-            <h1>CYBER TRIS</h1>
             <div class="game-container">
                 <canvas id="tetris" width="240" height="400"></canvas>
                 <div class="panel">
                     <div class="score-box">SCORE <div id="score">0</div></div>
-                    <button onclick="startGame()">START</button>
+                    <div class="controls-info">
+                        <p>ARROWS: MOVE/ROT</p>
+                    </div>
+                    <button onclick="startGame()">REBOOT SYSTEM</button>
                 </div>
             </div>
-            </div>
+        </div>
 
         <div id="system-view" class="view-section hidden">
-            <h1>SYSTEM CALENDAR</h1>
             <header class="cal-header">
-                <button onclick="changeMonth(-1)">PREV</button>
-                <h2 id="month-display">--/--</h2>
-                <button onclick="changeMonth(1)">NEXT</button>
+                <button onclick="changeMonth(-1)">&#60; PREV</button>
+                <h2 id="month-display">LOADING...</h2>
+                <button onclick="changeMonth(1)">NEXT &#62;</button>
             </header>
             <div id="calendar" class="calendar-grid"></div>
         </div>
@@ -39,9 +40,14 @@
     <div id="modal" class="hidden">
         <div class="modal-content">
             <h2 id="modal-date">DATE</h2>
-            <input type="text" id="event-input" autocomplete="off">
+            
+            <div class="input-group">
+                <input type="text" id="event-input" placeholder="INPUT TASK..." autocomplete="off">
+                <button id="mic-btn" onclick="startVoiceInput()">🎤</button>
+            </div>
+
             <div class="modal-btns">
-                <button onclick="deleteEvent()">DEL</button>
+                <button onclick="deleteEvent()" style="color:var(--accent); border-color:var(--accent);">DEL</button>
                 <button onclick="saveEvent()">SAVE</button>
                 <button onclick="closeModal()">CLOSE</button>
             </div>
